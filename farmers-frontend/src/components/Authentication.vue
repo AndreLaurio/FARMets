@@ -47,7 +47,7 @@
                         <div v-else>
                             <v-text-field v-model="login_data.email" label="Email" outlined :rules="emailRules" :counter="30" required></v-text-field>
                             <v-text-field v-model="login_data.password" label="Password" outlined :rules="[rules.required, rules.min]" counter hint="At least 8 characters" :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'" :type="show_password ? 'text' : 'password'" @click:append="show_password = !show_password" required></v-text-field>
-                            <div class="ml-12 pl-12 valerror">{{loginValidation}}</div>
+                            <div class="ml-12 pl-8 valerror">{{loginValidation}}</div>
                         </div>
                     </v-card-text>
                     <v-card-actions class="justify-center">
@@ -168,7 +168,7 @@ export default {
             registration_p2:false,
             registration_p3:false,
             imageUrl:null,
-            registerSuccess:true,
+            registerSuccess:false,
             registerValidation:'',
             loginValidation:''
         }
@@ -188,6 +188,7 @@ export default {
             this.registration = false
             this.registration_p2 = false
             this.registration_p3 = false
+            this.registerSuccess = false
         },
 
         //Inserting Image to registration p3 
@@ -248,12 +249,18 @@ export default {
                 }).then(response => {
                     axios.get('/api/user').then(response =>{
                         let user_type = response.data.user_type
-                        if(user_type == 1){
-                            console.log('seller')
-                        }else if(user_type == 2){
-                            console.log('buyer')
-                        }else if(user_type == 3){
-                            console.log('admin')
+                        let is_approved = response.data.is_approved
+                        if(is_approved == 0){
+                            //show that his account isn't approved yet
+                            this.loginValidation = 'Your account is waiting for approval.'
+                        }else{
+                             if(user_type == 1){
+                                console.log('seller')
+                            }else if(user_type == 2){
+                                console.log('buyer')
+                            }else if(user_type == 3){
+                                console.log('admin')
+                            }
                         }
                     })
                 }).catch(err => {
