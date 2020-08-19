@@ -11,7 +11,7 @@
                 <v-expansion-panel-content>
                     <v-layout row wrap>
                         <v-flex>
-                
+                        
                         </v-flex>
                         <v-flex>
                             <h1>Image goes here</h1>
@@ -63,7 +63,7 @@ export default {
             })
         },
         approveAccount(){
-            axios.put(``)
+            // axios.put(``)
         }
     }
 }
