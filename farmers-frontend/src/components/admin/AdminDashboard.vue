@@ -14,23 +14,31 @@
                 </v-list> 
                 <v-list-item link>
                     <v-list-item-action>
-                        <v-icon color="#760D11">mdi-home</v-icon>
+                        <v-icon color="green accent-4">mdi-home</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
                         Home
                     </v-list-item-content>
                 </v-list-item>
-                <v-list-item link>
+                  <v-list-item link>
                     <v-list-item-action>
-                        <v-icon color="#760D11">mdi-face</v-icon>
+                        <v-icon color="green accent-4">mdi-face</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
                         Profile
                     </v-list-item-content>
                 </v-list-item>
+                <v-list-item link v-on:click="accountApproval">
+                    <v-list-item-action>
+                        <v-icon color="green accent-4">mdi-account-supervisor-circle-outline</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        Account Approval
+                    </v-list-item-content>
+                </v-list-item>
                 <v-list-item link v-on:click="logout">
                     <v-list-item-action>
-                        <v-icon color="#760D11">mdi-logout</v-icon>
+                        <v-icon color="green accent-4">mdi-logout</v-icon>
                     </v-list-item-action>
                     <v-list-item-content>
                         Logout
@@ -41,7 +49,7 @@
 
         <v-app-bar app color="green accent-4" dark>
             <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title>FARMETS</v-toolbar-title>
+            <v-toolbar-title class="pop">FARMETS</v-toolbar-title>
         </v-app-bar>
     </nav>
 </template>
@@ -83,6 +91,9 @@ export default {
             axios.post('/logout').then(response => {
                 this.$router.push({ name: 'Index' })
             })
+        },
+        accountApproval(){
+            this.$router.push({ name: 'AdminApproval' })
         }
     }
 }
