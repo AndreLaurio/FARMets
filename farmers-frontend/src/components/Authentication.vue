@@ -3,8 +3,8 @@
         <v-card class="rounded-xl" height="650">
         <v-layout row wrap class="mt-5">
             <v-flex xs12 md6 class="pt-12">
-                    <v-img src="../assets/logo.svg" class="mx-auto mt-12" width="200"></v-img>
-                    <a href="https://pps.org.ph/"><h1 class="text-center mt-3 below-img">pps.org.ph</h1></a>
+                    <!-- <v-img src="../assets/pps-logo.png" class="mx-auto mt-12" width="200"></v-img>
+                    <a href="https://pps.org.ph/"><h1 class="text-center mt-3 below-img">pps.org.ph</h1></a> -->
             </v-flex>
             <v-flex xs12 md6>
                 <v-card class="mx-auto rounded-xl mt-3 mb-3" max-width="500" v-if="registerSuccess == false">
@@ -47,7 +47,7 @@
                         <div v-else>
                             <v-text-field v-model="login_data.email" label="Email" outlined :rules="emailRules" :counter="30" required></v-text-field>
                             <v-text-field v-model="login_data.password" label="Password" outlined :rules="[rules.required, rules.min]" counter hint="At least 8 characters" :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'" :type="show_password ? 'text' : 'password'" @click:append="show_password = !show_password" required></v-text-field>
-                            <div class="ml-12 pl-8 valerror">{{loginValidation}}</div>
+                            <div class="ml-12 pl-12 valerror">{{loginValidation}}</div>
                         </div>
                     </v-card-text>
                     <v-card-actions class="justify-center">
@@ -168,7 +168,7 @@ export default {
             registration_p2:false,
             registration_p3:false,
             imageUrl:null,
-            registerSuccess:false,
+            registerSuccess:true,
             registerValidation:'',
             loginValidation:''
         }
@@ -188,7 +188,6 @@ export default {
             this.registration = false
             this.registration_p2 = false
             this.registration_p3 = false
-            this.registerSuccess = false
         },
 
         //Inserting Image to registration p3 
@@ -249,18 +248,12 @@ export default {
                 }).then(response => {
                     axios.get('/api/user').then(response =>{
                         let user_type = response.data.user_type
-                        let is_approved = response.data.is_approved
-                        if(is_approved == 0){
-                            //show that his account isn't approved yet
-                            this.loginValidation = 'Your account is waiting for approval.'
-                        }else{
-                             if(user_type == 1){
-                                console.log('seller')
-                            }else if(user_type == 2){
-                                console.log('buyer')
-                            }else if(user_type == 3){
-                                console.log('admin')
-                            }
+                        if(user_type == 1){
+                            console.log('seller')
+                        }else if(user_type == 2){
+                            console.log('buyer')
+                        }else if(user_type == 3){
+                            console.log('admin')
                         }
                     })
                 }).catch(err => {
